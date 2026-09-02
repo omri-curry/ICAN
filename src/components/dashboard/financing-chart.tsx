@@ -25,17 +25,17 @@ export function FinancingChart({ data }: FinancingChartProps) {
         <desc id="chart-desc">עלייה מ־620 אלף שקלים בינואר ל־1.05 מיליון שקלים ביוני</desc>
         <defs>
           <linearGradient id="chartArea" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#626a70" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#626a70" stopOpacity="0" />
+            <stop offset="0%" stopColor="#657b8d" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#657b8d" stopOpacity="0.015" />
           </linearGradient>
         </defs>
         {[0, 300000, 600000, 900000, 1200000].map((value) => {
           const y = padding.top + chartHeight - (value / maxValue) * chartHeight;
-          return <g key={value}><line x1={padding.left} x2={width - padding.right} y1={y} y2={y} stroke="#e4e6e7" strokeDasharray="3 5"/><text x={padding.left - 10} y={y + 4} textAnchor="end" className="chart-axis">{value === 0 ? "0" : `${value / 1000000}M`}</text></g>;
+          return <g key={value}><line x1={padding.left} x2={width - padding.right} y1={y} y2={y} className="chart-grid-line"/><text x={padding.left - 10} y={y + 4} textAnchor="end" className="chart-axis">{value === 0 ? "0" : `${value / 1000000}M`}</text></g>;
         })}
         <path d={area} fill="url(#chartArea)" />
-        <path d={line} fill="none" stroke="#3d4449" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        {points.map((point, index) => <g key={point.month}><circle cx={point.x} cy={point.y} r={index === points.length - 1 ? 5 : 3.5} fill="#fff" stroke="#3d4449" strokeWidth="2.5"/><text x={point.x} y={height - 11} textAnchor="middle" className="chart-label">{point.month}</text></g>)}
+        <path d={line} className="chart-data-line" />
+        {points.map((point, index) => <g className="chart-point" tabIndex={0} role="img" aria-label={`${point.month}: ${point.value.toLocaleString("he-IL")} שקלים`} key={point.month}><circle cx={point.x} cy={point.y} r={index === points.length - 1 ? 5 : 3.5}/><g className="chart-tooltip" transform={`translate(${point.x - 31} ${point.y - 34})`}><rect width="62" height="23" rx="5"/><text x="31" y="15" textAnchor="middle">₪{Math.round(point.value / 1000)}K</text></g><text x={point.x} y={height - 11} textAnchor="middle" className="chart-label">{point.month}</text></g>)}
       </svg>
     </div>
   );

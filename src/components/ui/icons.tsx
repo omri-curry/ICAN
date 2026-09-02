@@ -23,3 +23,4 @@ export const WalletIcon = (props: IconProps) => <IconBase {...props}><path d="M4
 export const ActivityIcon = (props: IconProps) => <IconBase {...props}><path d="M3 12h4l2.3-6 4.1 12 2.2-6H21"/></IconBase>;
 export const CheckCircleIcon = (props: IconProps) => <IconBase {...props}><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/></IconBase>;
 export const ClockIcon = (props: IconProps) => <IconBase {...props}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></IconBase>;
+export const UploadIcon = (props: IconProps) => <IconBase {...props}><path d="M12 16V4M7.5 8.5 12 4l4.5 4.5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></IconBase>;

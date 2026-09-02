@@ -1,4 +1,4 @@
-import { ActivityIcon, ArrowIcon, CheckCircleIcon, ClockIcon, WalletIcon } from "@/components/ui/icons";
+import { ActivityIcon, ArrowIcon, BriefcaseIcon, CheckCircleIcon, ClockIcon, WalletIcon } from "@/components/ui/icons";
 import Link from "next/link";
 import { dashboardData } from "@/data/mocks/dashboard";
 import { FinancingChart } from "./financing-chart";
@@ -76,7 +76,7 @@ export function Dashboard() {
 
       <section className="panel deals-panel">
         <div className="panel-heading deals-heading"><div><p className="section-kicker">צבר בתהליך</p><h2>עסקאות פעילות</h2></div><Link href="/deals">לכל העסקאות <ArrowIcon /></Link></div>
-        {activeDeals.length ? <div className="table-scroll"><table className="active-deals-table"><thead><tr><th>מספר עסקה</th><th>תאריך</th><th>סכום</th><th>מספר צ׳קים</th><th>סטטוס</th><th><span className="sr-only">פתיחת עסקה</span></th></tr></thead><tbody>{activeDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td>{deal.checkCount}</td><td><StatusBadge status={deal.status} /></td><td><Link className="active-deal-link" href={`/deals/${deal.id}`} aria-label={`פתיחת עסקה ${deal.dealNumber}`}><ArrowIcon /></Link></td></tr>)}</tbody></table></div> : <div className="active-deals-empty"><strong>אין עסקאות פעילות</strong><p>כל העסקאות שלכם הושלמו. ניתן לצפות בהיסטוריית העסקאות דרך מסך העסקאות.</p></div>}
+        {activeDeals.length ? <div className="table-scroll"><table className="active-deals-table"><thead><tr><th>מספר עסקה</th><th>תאריך</th><th>סכום</th><th>מספר צ׳קים</th><th>סטטוס</th><th><span className="sr-only">פתיחת עסקה</span></th></tr></thead><tbody>{activeDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td>{deal.checkCount}</td><td><StatusBadge status={deal.status} /></td><td><Link className="active-deal-link" href={`/deals/${deal.id}`} aria-label={`פתיחת עסקה ${deal.dealNumber}`}><ArrowIcon /></Link></td></tr>)}</tbody></table></div> : <div className="active-deals-empty"><span className="empty-state-icon"><BriefcaseIcon /></span><strong>אין עסקאות פעילות</strong><p>כל העסקאות שלכם הושלמו. ניתן לצפות בהיסטוריית העסקאות דרך מסך העסקאות.</p></div>}
       </section>
     </div>
   );

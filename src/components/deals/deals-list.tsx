@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowIcon } from "@/components/ui/icons";
+import { ArrowIcon, BriefcaseIcon } from "@/components/ui/icons";
 import { formatCurrency, formatDate, formatDateTime, type Deal, type DealStatus } from "@/data/mocks/deals";
 import { StatusBadge } from "./status-badge";
 
@@ -44,10 +44,10 @@ export function DealsList({ deals }: Readonly<{ deals: ReadonlyArray<Deal> }>) {
 
       {filteredDeals.length ? <>
         <section className="panel deals-table-panel" aria-label="רשימת עסקאות">
-          <div className="table-scroll"><table className="deals-list-table"><thead><tr><th>מספר עסקה</th><th>תאריך פתיחה</th><th>סכום עסקה</th><th>מספר צ׳קים</th><th>סטטוס</th><th>עדכון אחרון</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{filteredDeals.map((deal) => <tr key={deal.id} tabIndex={0} onClick={() => openDeal(deal.id)} onKeyDown={(event) => { if (event.key === "Enter") openDeal(deal.id); }} aria-label={`פתיחת עסקה ${deal.dealNumber}`}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td>{deal.checkCount}</td><td><StatusBadge status={deal.status} /></td><td dir="ltr">{formatDateTime(deal.lastUpdated)}</td><td><Link href={`/deals/${deal.id}`} onClick={(event) => event.stopPropagation()}>צפייה בעסקה <ArrowIcon /></Link></td></tr>)}</tbody></table></div>
+          <div className="table-scroll"><table className="deals-list-table"><thead><tr><th>מספר עסקה</th><th>תאריך פתיחה</th><th>סכום עסקה</th><th>מספר צ׳קים</th><th>סטטוס</th><th>עדכון אחרון</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{filteredDeals.map((deal) => <tr key={deal.id} tabIndex={0} onClick={() => openDeal(deal.id)} onKeyDown={(event) => { if (event.key === "Enter") openDeal(deal.id); }} aria-label={`פתיחת עסקה ${deal.dealNumber}`}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td>{deal.checkCount}</td><td><StatusBadge status={deal.status} /></td><td dir="ltr">{formatDateTime(deal.lastUpdated)}</td><td><Link className="table-row-link" href={`/deals/${deal.id}`} onClick={(event) => event.stopPropagation()} aria-label={`פתיחת עסקה ${deal.dealNumber}`}><ArrowIcon /></Link></td></tr>)}</tbody></table></div>
         </section>
         <section className="deal-cards" aria-label="רשימת עסקאות במובייל">{filteredDeals.map((deal) => <Link href={`/deals/${deal.id}`} className="deal-card" key={deal.id}><div className="deal-card-head"><strong dir="ltr">{deal.dealNumber}</strong><StatusBadge status={deal.status} /></div><dl><div><dt>סכום עסקה</dt><dd dir="ltr">{formatCurrency(deal.amount)}</dd></div><div><dt>תאריך פתיחה</dt><dd dir="ltr">{formatDate(deal.createdAt)}</dd></div><div><dt>מספר צ׳קים</dt><dd>{deal.checkCount}</dd></div><div><dt>עדכון אחרון</dt><dd dir="ltr">{formatDateTime(deal.lastUpdated)}</dd></div></dl><span className="deal-card-action">צפייה בעסקה <ArrowIcon /></span></Link>)}</section>
-      </> : <section className="empty-deals"><strong>לא נמצאו עסקאות</strong><p>נסו לשנות את החיפוש או את הסינון שבחרתם.</p></section>}
+      </> : <section className="empty-deals"><span className="empty-state-icon"><BriefcaseIcon /></span><strong>לא נמצאו עסקאות</strong><p>נסו לשנות את החיפוש או את הסינון שבחרתם.</p></section>}
     </>
   );
 }

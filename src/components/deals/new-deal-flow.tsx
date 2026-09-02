@@ -6,6 +6,7 @@ import Image from "next/image";
 import type { DraftCheck, OcrCheckData, OcrFieldName, OcrRequest, OcrResponse, UploadedFileInfo } from "@/lib/ocr/types";
 import { emptyOcrData, requiredOcrFields } from "@/lib/ocr/types";
 import { formatCurrency, formatDate } from "@/data/mocks/deals";
+import { UploadIcon } from "@/components/ui/icons";
 
 type FlowStep = "upload" | "processing" | "verify" | "summary" | "submitting" | "success";
 type FileSide = "frontFile" | "backFile";
@@ -43,7 +44,7 @@ type UploadSlotProps = Readonly<{ checkId: string; side: FileSide; label: string
 function UploadSlot({ checkId, side, label, file, onFile }: UploadSlotProps) {
   const inputId = `${checkId}-${side}`;
   function acceptFile(candidate: File | undefined) { if (candidate) onFile(checkId, side, candidate); }
-  return <div className={`upload-slot${file ? " has-file" : ""}`} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); acceptFile(event.dataTransfer.files[0]); }}><div className="upload-side-label">{label}</div>{file ? <><FilePreview file={file} label={label} /><label htmlFor={inputId} className="replace-file">החלפת קובץ</label></> : <label htmlFor={inputId} className="upload-prompt"><span>＋</span><strong>גררו קובץ לכאן</strong><small>או לחצו לבחירה · JPG, PNG, PDF</small></label>}<input id={inputId} className="file-input" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" onChange={(event) => acceptFile(event.target.files?.[0])} /></div>;
+  return <div className={`upload-slot${file ? " has-file" : ""}`} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); acceptFile(event.dataTransfer.files[0]); }}><div className="upload-side-label">{label}</div>{file ? <><FilePreview file={file} label={label} /><label htmlFor={inputId} className="replace-file">החלפת קובץ</label></> : <label htmlFor={inputId} className="upload-prompt"><span className="upload-icon"><UploadIcon /></span><strong>גררו קובץ לכאן</strong><small>או לחצו לבחירה · JPG, PNG, PDF</small></label>}<input id={inputId} className="file-input" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" onChange={(event) => acceptFile(event.target.files?.[0])} /></div>;
 }
 
 export function NewDealFlow() {
