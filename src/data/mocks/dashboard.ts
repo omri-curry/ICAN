@@ -1,5 +1,3 @@
-export type DealStatusTone = "review" | "approved" | "active" | "completed" | "stopped";
-
 export const dashboardData = {
   office: {
     name: "אופק פתרונות מימון",
@@ -71,17 +69,4 @@ export const dashboardData = {
       { label: "סיבה טכנית", value: 1, percent: 11, tone: "#b8bdc0" },
     ],
   },
-  recentDeals: [
-    { id: "#10234", date: "01/09/2026", amount: "₪185,000", checks: 4, status: "בבדיקת חיתום", tone: "review" as DealStatusTone },
-    { id: "#10231", date: "31/08/2026", amount: "₪92,500", checks: 2, status: "אושרה", tone: "approved" as DealStatusTone },
-    { id: "#10227", date: "29/08/2026", amount: "₪310,000", checks: 7, status: "בטיפול", tone: "active" as DealStatusTone },
-    { id: "#10221", date: "27/08/2026", amount: "₪145,000", checks: 3, status: "בוצעה", tone: "completed" as DealStatusTone },
-  ],
-  allDeals: [
-    { id: "#10234", date: "01/09/2026", amount: "₪185,000", checks: 4, status: "בבדיקת חיתום", tone: "review" as DealStatusTone, update: "בדיקת מסמכים", updateDate: "02/09/2026" },
-    { id: "#10231", date: "31/08/2026", amount: "₪92,500", checks: 2, status: "אושרה", tone: "approved" as DealStatusTone, update: "ממתינה לביצוע", updateDate: "01/09/2026" },
-    { id: "#10227", date: "29/08/2026", amount: "₪310,000", checks: 7, status: "בטיפול", tone: "active" as DealStatusTone, update: "בדיקת בטוחות", updateDate: "01/09/2026" },
-    { id: "#10221", date: "27/08/2026", amount: "₪145,000", checks: 3, status: "בוצעה", tone: "completed" as DealStatusTone, update: "העסקה הושלמה", updateDate: "29/08/2026" },
-    { id: "#10218", date: "25/08/2026", amount: "₪78,000", checks: 2, status: "נעצרה", tone: "stopped" as DealStatusTone, update: "מסמכים חסרים", updateDate: "27/08/2026" },
-  ],
 } as const;

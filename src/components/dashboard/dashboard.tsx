@@ -1,10 +1,15 @@
 import { ArrowIcon } from "@/components/ui/icons";
+import Link from "next/link";
 import { dashboardData } from "@/data/mocks/dashboard";
 import { FinancingChart } from "./financing-chart";
 import { DonutChart } from "./donut-chart";
+import { StatusBadge } from "@/components/deals/status-badge";
+import { deals, dealStages, formatCurrency, formatDate, formatDateTime } from "@/data/mocks/deals";
 
 export function Dashboard() {
-  const { office, kpis, annualTarget, monthlyActivity, pipeline, checksOverview, recentDeals, allDeals } = dashboardData;
+  const { office, kpis, annualTarget, monthlyActivity, pipeline, checksOverview } = dashboardData;
+  const recentDeals = deals.slice(0, 4);
+  const allDeals = deals.slice(0, 5);
 
   return (
     <div className="dashboard">
@@ -64,13 +69,13 @@ export function Dashboard() {
       </section>
 
       <section className="panel deals-panel">
-        <div className="panel-heading deals-heading"><div><p className="section-kicker">צבר בתהליך</p><h2>עסקאות פעילות</h2></div><a href="#all-deals">לכל העסקאות <ArrowIcon /></a></div>
-        <div className="table-scroll"><table><thead><tr><th>מספר עסקה</th><th>תאריך</th><th>סכום</th><th>מספר צ׳קים</th><th>סטטוס</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{recentDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.id}</strong></td><td dir="ltr">{deal.date}</td><td><strong dir="ltr">{deal.amount}</strong></td><td>{deal.checks}</td><td><span className={`deal-status status-${deal.tone}`}><i />{deal.status}</span></td><td><a href={`#deal-${deal.id.slice(1)}`}>צפייה בעסקה <ArrowIcon /></a></td></tr>)}</tbody></table></div>
+        <div className="panel-heading deals-heading"><div><p className="section-kicker">צבר בתהליך</p><h2>עסקאות פעילות</h2></div><Link href="/deals">לכל העסקאות <ArrowIcon /></Link></div>
+        <div className="table-scroll"><table><thead><tr><th>מספר עסקה</th><th>תאריך</th><th>סכום</th><th>מספר צ׳קים</th><th>סטטוס</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{recentDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td>{deal.checkCount}</td><td><StatusBadge status={deal.status} /></td><td><Link href={`/deals/${deal.id}`}>צפייה בעסקה <ArrowIcon /></Link></td></tr>)}</tbody></table></div>
       </section>
 
       <section className="panel deals-panel all-deals-panel" id="all-deals">
         <div className="panel-heading deals-heading"><div><p className="section-kicker">היסטוריה מלאה</p><h2>כל העסקאות</h2></div><span className="table-count">{allDeals.length} עסקאות מוצגות</span></div>
-        <div className="table-scroll"><table><thead><tr><th>מספר עסקה</th><th>פתיחת עסקה</th><th>סכום</th><th>סטטוס</th><th>שלב / סיבת עצירה</th><th>עדכון אחרון</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{allDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.id}</strong></td><td dir="ltr">{deal.date}</td><td><strong dir="ltr">{deal.amount}</strong></td><td><span className={`deal-status status-${deal.tone}`}><i />{deal.status}</span></td><td>{deal.update}</td><td dir="ltr">{deal.updateDate}</td><td><a href={`#deal-${deal.id.slice(1)}`}>צפייה <ArrowIcon /></a></td></tr>)}</tbody></table></div>
+        <div className="table-scroll"><table><thead><tr><th>מספר עסקה</th><th>פתיחת עסקה</th><th>סכום</th><th>סטטוס</th><th>שלב נוכחי</th><th>עדכון אחרון</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{allDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td><StatusBadge status={deal.status} /></td><td>{deal.requiredActions[0] ?? dealStages[deal.currentStage]}</td><td dir="ltr">{formatDateTime(deal.lastUpdated)}</td><td><Link href={`/deals/${deal.id}`}>צפייה <ArrowIcon /></Link></td></tr>)}</tbody></table></div>
       </section>
     </div>
   );
