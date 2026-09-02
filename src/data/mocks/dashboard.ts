@@ -5,6 +5,7 @@ export const dashboardData = {
   },
   kpis: [
     {
+      id: "volume",
       label: "היקף עסקאות כולל",
       value: "₪4,850,000",
       change: "12.4%+",
@@ -12,6 +13,7 @@ export const dashboardData = {
       featured: true,
     },
     {
+      id: "active",
       label: "עסקאות פעילות",
       value: "12",
       change: "3 חדשות",
@@ -19,6 +21,7 @@ export const dashboardData = {
       featured: false,
     },
     {
+      id: "completed",
       label: "עסקאות שבוצעו",
       value: "34",
       change: "8 החודש",
@@ -26,6 +29,7 @@ export const dashboardData = {
       featured: false,
     },
     {
+      id: "processing",
       label: "עסקאות בטיפול",
       value: "7",
       change: "2 עודכנו",

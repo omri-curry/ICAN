@@ -23,7 +23,13 @@ export function AppShell({ children, activeSection = "home" }: AppShellProps) {
       <aside className="sidebar">
         <div className="brand-block"><Image src="/ican-logo.png" alt="ICAN א.י.ק.נ בע״מ" width={314} height={116} priority /></div>
         <nav aria-label="ניווט ראשי"><p className="nav-label">תפריט ראשי</p>{navigation.map(({ label, icon: Icon, href, section, emphasized, badge }) => { const active = activeSection === section; return <Link href={href} aria-current={active ? "page" : undefined} className={`${active ? "active " : ""}${emphasized ? "emphasized" : ""}`} key={label}><Icon /><span>{label}</span>{badge ? <b>{badge}</b> : null}</Link>; })}</nav>
-        <div className="sidebar-footer"><span>ICAN</span><p>פורטל משרדי מימון</p><small>סביבת עבודה מאובטחת</small></div>
+        <div className="sidebar-footer">
+          <div className="portal-signature"><span>ICAN</span><p>פורטל משרדי מימון</p><small>סביבת עבודה מאובטחת</small></div>
+          <a className="technology-credit" href="https://comigo.io" target="_blank" rel="noreferrer" aria-label="Developed by Comigo — פתיחת אתר Comigo">
+            <Image src="/comigo-mark.webp" alt="" width={53} height={49} />
+            <span><small>Developed by</small><strong>Comigo</strong></span>
+          </a>
+        </div>
       </aside>
       <div className="workspace">
         <header className="topbar">

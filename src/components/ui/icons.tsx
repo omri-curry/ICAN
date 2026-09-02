@@ -19,3 +19,7 @@ export const BellIcon = (props: IconProps) => <IconBase {...props}><path d="M18 
 export const ChevronIcon = (props: IconProps) => <IconBase {...props}><path d="m9 10 3 3 3-3"/></IconBase>;
 export const ArrowIcon = (props: IconProps) => <IconBase {...props}><path d="M5 12h14M14 7l5 5-5 5"/></IconBase>;
 export const MenuIcon = (props: IconProps) => <IconBase {...props}><path d="M4 7h16M4 12h16M4 17h16"/></IconBase>;
+export const WalletIcon = (props: IconProps) => <IconBase {...props}><path d="M4 6.5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2h11"/><path d="M16 11h5v4h-5a2 2 0 0 1 0-4Z"/></IconBase>;
+export const ActivityIcon = (props: IconProps) => <IconBase {...props}><path d="M3 12h4l2.3-6 4.1 12 2.2-6H21"/></IconBase>;
+export const CheckCircleIcon = (props: IconProps) => <IconBase {...props}><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/></IconBase>;
+export const ClockIcon = (props: IconProps) => <IconBase {...props}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></IconBase>;

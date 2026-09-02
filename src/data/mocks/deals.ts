@@ -48,6 +48,12 @@ export const dealStages = [
   "ביצוע",
 ] as const;
 
+const finalDealStatuses: ReadonlyArray<DealStatus> = ["completed", "rejected"];
+
+export function isActiveDeal(deal: Deal) {
+  return !finalDealStatuses.includes(deal.status);
+}
+
 const office = "אופק פתרונות מימון";
 const contact = "ישראל ישראלי";
 

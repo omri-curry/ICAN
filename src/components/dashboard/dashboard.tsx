@@ -1,15 +1,21 @@
-import { ArrowIcon } from "@/components/ui/icons";
+import { ActivityIcon, ArrowIcon, CheckCircleIcon, ClockIcon, WalletIcon } from "@/components/ui/icons";
 import Link from "next/link";
 import { dashboardData } from "@/data/mocks/dashboard";
 import { FinancingChart } from "./financing-chart";
 import { DonutChart } from "./donut-chart";
 import { StatusBadge } from "@/components/deals/status-badge";
-import { deals, dealStages, formatCurrency, formatDate, formatDateTime } from "@/data/mocks/deals";
+import { deals, formatCurrency, formatDate, isActiveDeal } from "@/data/mocks/deals";
+
+const kpiIcons = {
+  volume: WalletIcon,
+  active: ActivityIcon,
+  completed: CheckCircleIcon,
+  processing: ClockIcon,
+};
 
 export function Dashboard() {
   const { office, kpis, annualTarget, monthlyActivity, pipeline, checksOverview } = dashboardData;
-  const recentDeals = deals.slice(0, 4);
-  const allDeals = deals.slice(0, 5);
+  const activeDeals = deals.filter(isActiveDeal);
 
   return (
     <div className="dashboard">
@@ -23,11 +29,11 @@ export function Dashboard() {
       </section>
 
       <section className="kpi-grid" aria-label="מדדים מרכזיים">
-        {kpis.map((kpi) => <article className={`kpi-card${kpi.featured ? " kpi-card-featured" : ""}`} key={kpi.label}>
-          <p>{kpi.label}</p>
-          <strong dir="ltr">{kpi.value}</strong>
+        {kpis.map((kpi) => { const Icon = kpiIcons[kpi.id]; return <article className={`kpi-card${kpi.featured ? " kpi-card-featured" : ""}`} key={kpi.id}>
+          <div className="kpi-card-heading"><p>{kpi.label}</p><span><Icon /></span></div>
+          <strong dir="ltr">{kpi.id === "active" ? activeDeals.length : kpi.value}</strong>
           <div><span>{kpi.change}</span>{kpi.context}</div>
-        </article>)}
+        </article>; })}
       </section>
 
       <section className="insights-grid">
@@ -70,12 +76,7 @@ export function Dashboard() {
 
       <section className="panel deals-panel">
         <div className="panel-heading deals-heading"><div><p className="section-kicker">צבר בתהליך</p><h2>עסקאות פעילות</h2></div><Link href="/deals">לכל העסקאות <ArrowIcon /></Link></div>
-        <div className="table-scroll"><table><thead><tr><th>מספר עסקה</th><th>תאריך</th><th>סכום</th><th>מספר צ׳קים</th><th>סטטוס</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{recentDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td>{deal.checkCount}</td><td><StatusBadge status={deal.status} /></td><td><Link href={`/deals/${deal.id}`}>צפייה בעסקה <ArrowIcon /></Link></td></tr>)}</tbody></table></div>
-      </section>
-
-      <section className="panel deals-panel all-deals-panel" id="all-deals">
-        <div className="panel-heading deals-heading"><div><p className="section-kicker">היסטוריה מלאה</p><h2>כל העסקאות</h2></div><span className="table-count">{allDeals.length} עסקאות מוצגות</span></div>
-        <div className="table-scroll"><table><thead><tr><th>מספר עסקה</th><th>פתיחת עסקה</th><th>סכום</th><th>סטטוס</th><th>שלב נוכחי</th><th>עדכון אחרון</th><th><span className="sr-only">פעולה</span></th></tr></thead><tbody>{allDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td><StatusBadge status={deal.status} /></td><td>{deal.requiredActions[0] ?? dealStages[deal.currentStage]}</td><td dir="ltr">{formatDateTime(deal.lastUpdated)}</td><td><Link href={`/deals/${deal.id}`}>צפייה <ArrowIcon /></Link></td></tr>)}</tbody></table></div>
+        {activeDeals.length ? <div className="table-scroll"><table className="active-deals-table"><thead><tr><th>מספר עסקה</th><th>תאריך</th><th>סכום</th><th>מספר צ׳קים</th><th>סטטוס</th><th><span className="sr-only">פתיחת עסקה</span></th></tr></thead><tbody>{activeDeals.map((deal) => <tr key={deal.id}><td><strong dir="ltr">{deal.dealNumber}</strong></td><td dir="ltr">{formatDate(deal.createdAt)}</td><td><strong dir="ltr">{formatCurrency(deal.amount)}</strong></td><td>{deal.checkCount}</td><td><StatusBadge status={deal.status} /></td><td><Link className="active-deal-link" href={`/deals/${deal.id}`} aria-label={`פתיחת עסקה ${deal.dealNumber}`}><ArrowIcon /></Link></td></tr>)}</tbody></table></div> : <div className="active-deals-empty"><strong>אין עסקאות פעילות</strong><p>כל העסקאות שלכם הושלמו. ניתן לצפות בהיסטוריית העסקאות דרך מסך העסקאות.</p></div>}
       </section>
     </div>
   );
