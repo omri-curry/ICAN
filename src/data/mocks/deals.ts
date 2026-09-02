@@ -53,6 +53,16 @@ const contact = "ישראל ישראלי";
 
 export const deals: ReadonlyArray<Deal> = [
   {
+    id: "10301", dealNumber: "#10301", createdAt: "2026-09-02", amount: 145000, checkCount: 3,
+    status: "in_progress", lastUpdated: "2026-09-02T12:10:00", currentStage: 0, requiredActions: [],
+    dealType: "ניכיון צ׳קים", financingOffice: office, contactName: contact,
+    checks: [
+      { id: "10301-1", checkNumber: "184520", amount: 45000, dueDate: "2026-10-15", drawerName: "חברת א.ב בע״מ", status: "valid" },
+      { id: "10301-2", checkNumber: "552018", amount: 62000, dueDate: "2026-10-30", drawerName: "אלון מסחר בע״מ", status: "valid" },
+      { id: "10301-3", checkNumber: "774103", amount: 38000, dueDate: "2026-11-15", drawerName: "חברת גמא בע״מ", status: "valid" },
+    ],
+  },
+  {
     id: "10234", dealNumber: "#10234", createdAt: "2026-09-01", amount: 185000, checkCount: 4,
     status: "in_progress", lastUpdated: "2026-09-02T10:35:00", currentStage: 2, requiredActions: [],
     dealType: "ניכיון צ׳קים", financingOffice: office, contactName: contact,

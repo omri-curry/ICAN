@@ -6,14 +6,14 @@ import { dashboardData } from "@/data/mocks/dashboard";
 
 type AppShellProps = Readonly<{
   children: ReactNode;
-  activeSection?: "home" | "deals";
+  activeSection?: "home" | "deals" | "new";
 }>;
 
 export function AppShell({ children, activeSection = "home" }: AppShellProps) {
   const navigation = [
     { label: "ראשי", icon: HomeIcon, href: "/", section: "home" },
     { label: "עסקאות", icon: BriefcaseIcon, href: "/deals", section: "deals" },
-    { label: "עסקה חדשה", icon: PlusIcon, href: "#עסקה-חדשה", section: "new", emphasized: true },
+    { label: "עסקה חדשה", icon: PlusIcon, href: "/deals/new", section: "new", emphasized: true },
     { label: "פניות", icon: MessageIcon, href: "#פניות", section: "requests", badge: "2" },
     { label: "פרופיל", icon: UserIcon, href: "#פרופיל", section: "profile" },
   ];
