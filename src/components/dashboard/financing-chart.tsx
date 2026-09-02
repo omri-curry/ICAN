@@ -25,8 +25,9 @@ export function FinancingChart({ data }: FinancingChartProps) {
         <desc id="chart-desc">עלייה מ־620 אלף שקלים בינואר ל־1.05 מיליון שקלים ביוני</desc>
         <defs>
           <linearGradient id="chartArea" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#657b8d" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#657b8d" stopOpacity="0.015" />
+            <stop offset="0%" stopColor="#5f86a0" stopOpacity="0.26" />
+            <stop offset="72%" stopColor="#5f86a0" stopOpacity="0.07" />
+            <stop offset="100%" stopColor="#5f86a0" stopOpacity="0.01" />
           </linearGradient>
         </defs>
         {[0, 300000, 600000, 900000, 1200000].map((value) => {
@@ -35,7 +36,7 @@ export function FinancingChart({ data }: FinancingChartProps) {
         })}
         <path d={area} fill="url(#chartArea)" />
         <path d={line} className="chart-data-line" />
-        {points.map((point, index) => <g className="chart-point" tabIndex={0} role="img" aria-label={`${point.month}: ${point.value.toLocaleString("he-IL")} שקלים`} key={point.month}><circle cx={point.x} cy={point.y} r={index === points.length - 1 ? 5 : 3.5}/><g className="chart-tooltip" transform={`translate(${point.x - 31} ${point.y - 34})`}><rect width="62" height="23" rx="5"/><text x="31" y="15" textAnchor="middle">₪{Math.round(point.value / 1000)}K</text></g><text x={point.x} y={height - 11} textAnchor="middle" className="chart-label">{point.month}</text></g>)}
+        {points.map((point, index) => <g className="chart-point" tabIndex={0} role="img" aria-label={`${point.month}: ${point.value.toLocaleString("he-IL")} שקלים`} key={point.month}><circle cx={point.x} cy={point.y} r={index === points.length - 1 ? 6 : 4.5}/><g className="chart-tooltip" transform={`translate(${point.x - 38} ${point.y - 40})`}><rect width="76" height="28" rx="6"/><text x="38" y="18" textAnchor="middle">₪{Math.round(point.value / 1000)}K</text></g><text x={point.x} y={height - 11} textAnchor="middle" className="chart-label">{point.month}</text></g>)}
       </svg>
     </div>
   );
