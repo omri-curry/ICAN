@@ -1,8 +1,4 @@
 export const dashboardData = {
-  office: {
-    name: "אופק פתרונות מימון",
-    userName: "ישראל ישראלי",
-  },
   kpis: [
     {
       id: "volume",

@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BellIcon, BriefcaseIcon, ChevronIcon, HomeIcon, MessageIcon, PlusIcon, UserIcon } from "@/components/ui/icons";
-import { dashboardData } from "@/data/mocks/dashboard";
+import { AccountMenu } from "@/components/layout/account-menu";
+import { BellIcon, BriefcaseIcon, HomeIcon, MessageIcon, PlusIcon, UserIcon } from "@/components/ui/icons";
+import { requireAuthSession } from "@/server/auth/session";
 
 type AppShellProps = Readonly<{
   children: ReactNode;
   activeSection?: "home" | "deals" | "new";
 }>;
 
-export function AppShell({ children, activeSection = "home" }: AppShellProps) {
+export async function AppShell({ children, activeSection = "home" }: AppShellProps) {
+  const session = await requireAuthSession();
   const navigation = [
     { label: "ראשי", icon: HomeIcon, href: "/", section: "home" },
     { label: "עסקאות", icon: BriefcaseIcon, href: "/deals", section: "deals" },
@@ -34,8 +36,8 @@ export function AppShell({ children, activeSection = "home" }: AppShellProps) {
       <div className="workspace">
         <header className="topbar">
           <div className="mobile-brand"><Image src="/ican-logo.png" alt="ICAN" width={157} height={58} /></div>
-          <div className="office-identity"><span>משרד מימון</span><strong>{dashboardData.office.name}</strong></div>
-          <div className="account-area"><button className="notification-button" type="button" aria-label="התראות"><BellIcon /><i /></button><span className="topbar-divider" /><button className="account-button" type="button" aria-label="תפריט משתמש"><span className="avatar">יי</span><span><small>משתמש</small><strong>{dashboardData.office.userName}</strong></span><ChevronIcon /></button></div>
+          <div className="office-identity"><span>משרד מימון</span><strong>{session.officeName}</strong></div>
+          <div className="account-area"><button className="notification-button" type="button" aria-label="התראות"><BellIcon /><i /></button><span className="topbar-divider" /><AccountMenu officeName={session.officeName} contactName={session.contactName} /></div>
         </header>
         <main>{children}</main>
         <nav className="mobile-nav" aria-label="ניווט ראשי במובייל">{navigation.map(({ label, icon: Icon, href, section, badge }) => { const active = activeSection === section; return <Link href={href} aria-current={active ? "page" : undefined} className={active ? "active" : ""} key={label}><span><Icon />{badge ? <b>{badge}</b> : null}</span><small>{label}</small></Link>; })}</nav>

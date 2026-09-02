@@ -1,10 +1,12 @@
 import { AppShell } from "@/components/layout/app-shell";
 import { Dashboard } from "@/components/dashboard/dashboard";
+import { requireAuthSession } from "@/server/auth/session";
 
-export default function Home() {
+export default async function Home() {
+  const session = await requireAuthSession();
   return (
     <AppShell>
-      <Dashboard />
+      <Dashboard officeName={session.officeName} />
     </AppShell>
   );
 }

@@ -13,8 +13,8 @@ const kpiIcons = {
   processing: ClockIcon,
 };
 
-export function Dashboard() {
-  const { office, kpis, annualTarget, monthlyActivity, pipeline, checksOverview } = dashboardData;
+export function Dashboard({ officeName }: Readonly<{ officeName: string }>) {
+  const { kpis, annualTarget, monthlyActivity, pipeline, checksOverview } = dashboardData;
   const activeDeals = deals.filter(isActiveDeal);
 
   return (
@@ -22,7 +22,7 @@ export function Dashboard() {
       <section className="page-heading">
         <div>
           <p className="eyebrow">סקירה יומית</p>
-          <h1>שלום, {office.name}</h1>
+          <h1>שלום, {officeName}</h1>
           <p>תמונת מצב עדכנית של הפעילות שלכם מול ICAN</p>
         </div>
         <p className="last-updated"><span />עודכן לאחרונה: היום, 09:42</p>

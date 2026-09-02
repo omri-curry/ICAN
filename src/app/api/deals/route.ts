@@ -1,7 +1,9 @@
 import type { OcrCheckData } from "@/lib/ocr/types";
+import { getAuthSession } from "@/server/auth/session";
 import { submitMockDeal } from "@/server/services/deals/mock-submission-service";
 
 export async function POST(request: Request) {
+  if (!await getAuthSession()) return Response.json({ error: "נדרשת התחברות לפורטל" }, { status: 401 });
   const payload = await request.json() as { checks?: ReadonlyArray<OcrCheckData> };
   if (!payload.checks?.length) return Response.json({ error: "לא צורפו צ׳קים לעסקה" }, { status: 400 });
   if (payload.checks.some((check) => Object.values(check).some((value) => !value.trim()))) {
